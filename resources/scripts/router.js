@@ -20,10 +20,10 @@ let router = new Router({
 
         { path: '/backend', component: Page, meta: { auth: true }, children: [
             { path: 'dashboard', name: 'Dashboard', component: Backend.Dashboard },
-            { path: 'setting', component: Backend.Setting, children: [
-                { path: '/', name: 'Setting', component: Backend.General },
-                { path: 'profile', name: 'Profile', component: Backend.Profile },
-                { path: 'security', name: 'Security', component: Backend.Security }
+            { path: 'setting', component: Backend.Dashboard, children: [
+                { path: '/', name: 'Setting', component: Backend.Dashboard },
+                { path: 'profile', name: 'Profile', component: Backend.Dashboard },
+                { path: 'security', name: 'Security', component: Backend.Dashboard }
             ]}
         ]}
     ]

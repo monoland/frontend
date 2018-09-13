@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import { Authent } from './authent';
+import { Authent } from './utilities/authent';
 import * as Components from './components';
 
-import App from './App.vue';
+import App from './views/Apps.vue';
 import router from './router';
 
 window._ = require('lodash');

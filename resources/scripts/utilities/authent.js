@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import {clientId, clientSecret, baseUrl} from './.env.js';
+import {clientId, clientSecret, baseUrl} from './../.env.js';
 
 class Authentication
 {
