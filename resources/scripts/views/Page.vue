@@ -5,21 +5,7 @@
                 <v-list-tile :to="{name: 'Dashboard' }">
                     <v-list-tile-action><v-icon>home</v-icon></v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Home</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-
-                <v-list-tile>
-                    <v-list-tile-action><v-icon>whatshot</v-icon></v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Trending</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-
-                <v-list-tile>
-                    <v-list-tile-action><v-icon>subscriptions</v-icon></v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Subscriptions</v-list-tile-title>
+                        <v-list-tile-title>Dashboard</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
 
@@ -29,28 +15,7 @@
                 <v-list-tile>
                     <v-list-tile-action><v-icon>history</v-icon></v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Program</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-
-                <v-list-tile>
-                    <v-list-tile-action><v-icon>watch_later</v-icon></v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>School</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-
-                <v-list-tile>
-                    <v-list-tile-action><v-icon>thumb_up</v-icon></v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Expense</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-
-                <v-list-tile>
-                    <v-list-tile-action><v-icon>thumb_up</v-icon></v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>District</v-list-tile-title>
+                        <v-list-tile-title>Your Page</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
 
@@ -58,16 +23,9 @@
                 <v-subheader>Transaction</v-subheader>
 
                 <v-list-tile>
-                    <v-list-tile-action><v-icon>settings</v-icon></v-list-tile-action>
-                    <v-list-tile-content>
-                        <v-list-tile-title>Planning</v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-
-                <v-list-tile>
                     <v-list-tile-action><v-icon>flag</v-icon></v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Realisation</v-list-tile-title>
+                        <v-list-tile-title>Your Page</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list>
@@ -77,10 +35,6 @@
             <v-toolbar-side-icon></v-toolbar-side-icon>
 
             <v-toolbar-title>Product Name</v-toolbar-title>
-
-            <v-autocomplete v-model="search"
-                flat solo inverted
-            ></v-autocomplete>
 
             <v-spacer></v-spacer>
 
@@ -93,14 +47,16 @@
                 bottom left
             >
                 <v-avatar size="32" slot="activator">
-                    <img src="/placeholder/people.jpeg" alt="pict">
+                    <img :src="user.avatar" alt="pict" v-if="user.avatar">
+                    <v-icon large v-else>account_circle</v-icon>
                 </v-avatar>
 
                 <v-card class="v-card__account">
                     <v-list class="pt-0">
                         <v-list-tile avatar>
                             <v-list-tile-avatar>
-                                <img src="/placeholder/people.jpeg" alt="pict">
+                                <img :src="user.avatar" alt="pict" v-if="user.avatar">
+                                <v-icon large v-else>account_circle</v-icon>
                             </v-list-tile-avatar>
 
                             <v-list-tile-content>
@@ -118,26 +74,10 @@
                             </v-list-tile-content>
                         </v-list-tile>
 
-                        <v-list-tile>
+                        <v-list-tile @click="signOut">
                             <v-list-tile-action><v-icon>exit_to_app</v-icon></v-list-tile-action>
                             <v-list-tile-content>
                                 <v-list-tile-title>Sign out</v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-
-                        <v-divider></v-divider>
-
-                        <v-list-tile>
-                            <v-list-tile-action><v-icon>help</v-icon></v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title>Help</v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-
-                        <v-list-tile>
-                            <v-list-tile-action><v-icon>feedback</v-icon></v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title>Send feedback</v-list-tile-title>
                             </v-list-tile-content>
                         </v-list-tile>
                     </v-list>
@@ -167,6 +107,7 @@ export default {
 
     data:() => ({
         user: {
+            avatar: null,
             name: null,
             email: null
         },
@@ -179,7 +120,10 @@ export default {
     },
 
     methods: {
-        // 
+        signOut: function() {
+            this.$auth.signout();
+            this.$router.push({ name: 'Login' });
+        }
     },
 
     watch: {

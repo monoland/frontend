@@ -1163,13 +1163,14 @@ var Authentication = function () {
 
         if (localStorage.getItem('user_name')) {
             this.user = Object.assign({}, {
-                name: localStorage.getItem('user_name'),
-                email: localStorage.getItem('user_email'),
-                roles: localStorage.getItem('user_roles'),
-                pages: localStorage.getItem('user_pages')
+                avatar: localStorage.getItem('user_avatar') === 'undefined' ? null : localStorage.getItem('user_avatar'),
+                name: localStorage.getItem('user_name') === 'undefined' ? null : localStorage.getItem('user_name'),
+                email: localStorage.getItem('user_email') === 'undefined' ? null : localStorage.getItem('user_email'),
+                roles: localStorage.getItem('user_roles') === 'undefined' ? null : localStorage.getItem('user_roles'),
+                pages: localStorage.getItem('user_pages') === 'undefined' ? null : localStorage.getItem('user_pages')
             });
 
-            if (this.user.pages !== 'undefined') {
+            if (this.user.pages) {
                 this.user.pages = JSON.parse(this.user.pages);
             }
         } else {
@@ -1226,12 +1227,14 @@ var Authentication = function () {
     }, {
         key: 'fetchUser',
         value: function fetchUser(user) {
+            localStorage.setItem('user_avatar', user.avatar);
             localStorage.setItem('user_name', user.name);
             localStorage.setItem('user_email', user.email);
             localStorage.setItem('user_roles', user.roles);
             localStorage.setItem('user_pages', JSON.stringify(user.pages));
 
             this.user = Object.assign({}, {
+                avatar: user.avatar,
                 name: user.name,
                 email: user.email,
                 roles: user.roles,
@@ -2832,66 +2835,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'page',
@@ -2899,6 +2842,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             user: {
+                avatar: null,
                 name: null,
                 email: null
             },
@@ -2913,7 +2857,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
-        // 
+        signOut: function signOut() {
+            this.$auth.signout();
+            this.$router.push({ name: 'Login' });
+        }
     },
 
     watch: {
@@ -2951,43 +2898,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-list-tile-content",
-                    [_c("v-list-tile-title", [_vm._v("Home")])],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-tile",
-                [
-                  _c(
-                    "v-list-tile-action",
-                    [_c("v-icon", [_vm._v("whatshot")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
-                    [_c("v-list-tile-title", [_vm._v("Trending")])],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-tile",
-                [
-                  _c(
-                    "v-list-tile-action",
-                    [_c("v-icon", [_vm._v("subscriptions")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
-                    [_c("v-list-tile-title", [_vm._v("Subscriptions")])],
+                    [_c("v-list-tile-title", [_vm._v("Dashboard")])],
                     1
                   )
                 ],
@@ -3009,61 +2920,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-list-tile-content",
-                    [_c("v-list-tile-title", [_vm._v("Program")])],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-tile",
-                [
-                  _c(
-                    "v-list-tile-action",
-                    [_c("v-icon", [_vm._v("watch_later")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
-                    [_c("v-list-tile-title", [_vm._v("School")])],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-tile",
-                [
-                  _c(
-                    "v-list-tile-action",
-                    [_c("v-icon", [_vm._v("thumb_up")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
-                    [_c("v-list-tile-title", [_vm._v("Expense")])],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-tile",
-                [
-                  _c(
-                    "v-list-tile-action",
-                    [_c("v-icon", [_vm._v("thumb_up")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
-                    [_c("v-list-tile-title", [_vm._v("District")])],
+                    [_c("v-list-tile-title", [_vm._v("Your Page")])],
                     1
                   )
                 ],
@@ -3077,29 +2934,11 @@ var render = function() {
               _c(
                 "v-list-tile",
                 [
-                  _c(
-                    "v-list-tile-action",
-                    [_c("v-icon", [_vm._v("settings")])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-list-tile-content",
-                    [_c("v-list-tile-title", [_vm._v("Planning")])],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list-tile",
-                [
                   _c("v-list-tile-action", [_c("v-icon", [_vm._v("flag")])], 1),
                   _vm._v(" "),
                   _c(
                     "v-list-tile-content",
-                    [_c("v-list-tile-title", [_vm._v("Realisation")])],
+                    [_c("v-list-tile-title", [_vm._v("Your Page")])],
                     1
                   )
                 ],
@@ -3129,17 +2968,6 @@ var render = function() {
           _vm._v(" "),
           _c("v-toolbar-title", [_vm._v("Product Name")]),
           _vm._v(" "),
-          _c("v-autocomplete", {
-            attrs: { flat: "", solo: "", inverted: "" },
-            model: {
-              value: _vm.search,
-              callback: function($$v) {
-                _vm.search = $$v
-              },
-              expression: "search"
-            }
-          }),
-          _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
           _c(
@@ -3166,10 +2994,15 @@ var render = function() {
                 "v-avatar",
                 { attrs: { slot: "activator", size: "32" }, slot: "activator" },
                 [
-                  _c("img", {
-                    attrs: { src: "/placeholder/people.jpeg", alt: "pict" }
-                  })
-                ]
+                  _vm.user.avatar
+                    ? _c("img", {
+                        attrs: { src: _vm.user.avatar, alt: "pict" }
+                      })
+                    : _c("v-icon", { attrs: { large: "" } }, [
+                        _vm._v("account_circle")
+                      ])
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
@@ -3184,14 +3017,19 @@ var render = function() {
                         "v-list-tile",
                         { attrs: { avatar: "" } },
                         [
-                          _c("v-list-tile-avatar", [
-                            _c("img", {
-                              attrs: {
-                                src: "/placeholder/people.jpeg",
-                                alt: "pict"
-                              }
-                            })
-                          ]),
+                          _c(
+                            "v-list-tile-avatar",
+                            [
+                              _vm.user.avatar
+                                ? _c("img", {
+                                    attrs: { src: _vm.user.avatar, alt: "pict" }
+                                  })
+                                : _c("v-icon", { attrs: { large: "" } }, [
+                                    _vm._v("account_circle")
+                                  ])
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
                           _c(
                             "v-list-tile-content",
@@ -3233,6 +3071,7 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-list-tile",
+                        { on: { click: _vm.signOut } },
                         [
                           _c(
                             "v-list-tile-action",
@@ -3243,46 +3082,6 @@ var render = function() {
                           _c(
                             "v-list-tile-content",
                             [_c("v-list-tile-title", [_vm._v("Sign out")])],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("v-divider"),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-tile",
-                        [
-                          _c(
-                            "v-list-tile-action",
-                            [_c("v-icon", [_vm._v("help")])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-tile-content",
-                            [_c("v-list-tile-title", [_vm._v("Help")])],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-tile",
-                        [
-                          _c(
-                            "v-list-tile-action",
-                            [_c("v-icon", [_vm._v("feedback")])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-tile-content",
-                            [
-                              _c("v-list-tile-title", [_vm._v("Send feedback")])
-                            ],
                             1
                           )
                         ],
