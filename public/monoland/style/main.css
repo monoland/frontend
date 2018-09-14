@@ -11172,6 +11172,9 @@ table.v-table tfoot tr td {
   height: 88px;
   max-height: 88px;
 }
+.page__data {
+  background: #fff;
+}
 .page__title {
   -webkit-box-align: center;
       -ms-flex-align: center;

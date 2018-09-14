@@ -11,6 +11,22 @@ class Authentication
             text: null
         };
         this.baseURL = baseUrl;
+
+        if (localStorage.getItem('user_name')) {
+            this.user = Object.assign({}, {
+                name: localStorage.getItem('user_name'),
+                email: localStorage.getItem('user_email'),
+                roles: localStorage.getItem('user_roles'),
+                pages: localStorage.getItem('user_pages')
+            });
+
+            if (this.user.pages !== 'undefined') {
+                this.user.pages = JSON.parse(this.user.pages);
+            }
+        } else {
+            this.user = null;
+        }
+        
     }
 
     clientId() {
@@ -52,20 +68,18 @@ class Authentication
         localStorage.removeItem('token_create');
     }
 
-    user() {
-        return {
-            name: localStorage.getItem('user_name'),
-            email: localStorage.getItem('user_email'),
-            roles: localStorage.getItem('user_roles'),
-            pages: JSON.parse(localStorage.getItem('user_pages'))
-        };
-    }
-
     fetchUser(user) {
         localStorage.setItem('user_name', user.name);
         localStorage.setItem('user_email', user.email);
         localStorage.setItem('user_roles', user.roles);
         localStorage.setItem('user_pages', JSON.stringify(user.pages));
+
+        this.user = Object.assign({}, {
+            name: user.name,
+            email: user.email,
+            roles: user.roles,
+            pages: JSON.stringify(user.pages)
+        });
     }
 
     removeUser() {

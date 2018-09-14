@@ -8,6 +8,8 @@ import * as Account from './views/account/main';
 import Page from './views/Page.vue';
 import * as Backend from './views/backend/main';
 
+import * as Setting from './views/setting/main';
+
 Vue.use(Router);
 
 let router = new Router({
@@ -20,10 +22,10 @@ let router = new Router({
 
         { path: '/backend', component: Page, meta: { auth: true }, children: [
             { path: 'dashboard', name: 'Dashboard', component: Backend.Dashboard },
-            { path: 'setting', component: Backend.Dashboard, children: [
-                { path: '/', name: 'Setting', component: Backend.Dashboard },
-                { path: 'profile', name: 'Profile', component: Backend.Dashboard },
-                { path: 'security', name: 'Security', component: Backend.Dashboard }
+            { path: 'setting', component: Backend.Setting, children: [
+                { path: '/', name: 'Setting', component: Setting.Setting },
+                { path: 'account', name: 'Account', component: Setting.Account },
+                { path: 'password', name: 'Password', component: Setting.Password }
             ]}
         ]}
     ]

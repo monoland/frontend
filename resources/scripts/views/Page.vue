@@ -104,14 +104,14 @@
                             </v-list-tile-avatar>
 
                             <v-list-tile-content>
-                                <v-list-tile-title>monoland</v-list-tile-title>
-                                <v-list-tile-sub-title>monoland@gmail.com</v-list-tile-sub-title>
+                                <v-list-tile-title>{{ user.name }}</v-list-tile-title>
+                                <v-list-tile-sub-title>{{ user.email }}</v-list-tile-sub-title>
                             </v-list-tile-content>
                         </v-list-tile>
 
                         <v-divider></v-divider>
 
-                        <v-list-tile>
+                        <v-list-tile :to="{ name: 'Setting' }">
                             <v-list-tile-action><v-icon>settings</v-icon></v-list-tile-action>
                             <v-list-tile-content>
                                 <v-list-tile-title>Settings</v-list-tile-title>
@@ -166,9 +166,17 @@ export default {
     name: 'page',
 
     data:() => ({
+        user: {
+            name: null,
+            email: null
+        },
         menu: false,
         search: null
     }),
+
+    mounted() {
+        this.user = this.$auth.user;
+    },
 
     methods: {
         // 
