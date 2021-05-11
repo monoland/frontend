@@ -16,7 +16,7 @@
         "fine-uploader": "^5.16.2",
         "fine-uploader-wrappers": "^1.0.1",
         "laravel-mix": "^2.1.14",
-        "lodash": "^4.17.10",
+        "lodash": "^4.17.21",
         "stylus": "^0.54.5",
         "stylus-loader": "^3.0.2",
         "vue": "^2.5.7",
